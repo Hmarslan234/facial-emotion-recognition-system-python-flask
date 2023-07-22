@@ -26,7 +26,7 @@
 
 <h2>How to install and run facial emotion recognition system</h2>
 
-<strong>Install required libraries</strong>: Install all the required libraries using the below command:</strong
+<strong>Install required libraries</strong>: Install all the required libraries using the below command:
 <pre>
 pip install -r requirements.txt
 </pre>
