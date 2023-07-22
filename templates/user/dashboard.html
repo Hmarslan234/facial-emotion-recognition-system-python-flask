@@ -1,0 +1,69 @@
+{% extends "user/layout.html"%}
+
+{% block content %}
+<div class="container">
+    {% with messages=get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category,message in messages %}
+    <div class="alert alert-{{category}}">
+        <strong>{{message}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% include 'user/navbar.html' %}
+    
+    <div class="container">
+        <h2 class="text-center" style="margin: 20px auto; color: red;">Welcome, {{ users.username }}</h2>
+        <div class="my-2">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Contact No.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{users.id}}</td>
+                            <td>{{users.fname}}</td>
+                            <td>{{users.lname}}</td>
+                            <td>{{users.username}}</td>
+                            <td>{{users.email}}</td>
+                            <td>{{users.edu}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="container bg-light my-4">
+                    <div class="col-md-12 text-center">
+                        <a href="/user/detect"><button type="button" class="btn btn-primary">Detect Emotion</button></a>
+                    </div>
+                </div>
+
+                <h3 class="text-center" style="margin: 12px auto; color: darkslategray;">Session Record</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Sr</th>
+                        <th>Time</th>
+                        <th>Detected Emotion</th>
+                    </tr>
+                    {% for time, emotion in emotions %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td> {{ time }}</td>
+                        <td>{{ emotion }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
