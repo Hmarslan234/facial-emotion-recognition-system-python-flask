@@ -21,7 +21,7 @@
   <li>OpenCV</li>
   <li>Tensorflow</li>
   <li>Flask_SQLALCHEMY</li>
-  <li>HTML, CSS (for GUI</li>
+  <li>HTML, CSS (for GUI)</li>
 </ul>
 
 <h2>How to install and run facial emotion recognition system</h2>
