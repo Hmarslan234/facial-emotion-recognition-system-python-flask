@@ -136,7 +136,7 @@ def adminIndex():
                 flash('Login Successfully','success')
                 return redirect('/admin/dashboard')
             else:
-                flash('Invalid Email and Password','danger')
+                flash('Invalid Username and Password','danger')
                 return redirect('/admin/')
     else:
         return render_template('admin/index.html',title="Admin Login")
@@ -265,7 +265,7 @@ def userIndex():
                 flash('Login Successfully','success')
                 return redirect('/user/dashboard')
         else:
-            flash('Invalid Email and Password','danger')
+            flash('Invalid Username and Password','danger')
             return redirect('/user/')
     else:
         return render_template('user/index.html',title="User Login")
@@ -305,6 +305,11 @@ def userSignup():
 def read_emotions_from_csv(username):
     today_date = datetime.datetime.now().strftime("%Y-%m-%d")
     file_name = os.path.join("Emotions", f"emotions_{today_date}.csv")
+
+    # Check if the CSV file exists for the current date
+    if not os.path.exists(file_name):
+        # If the file doesn't exist, return an empty list or handle it as needed
+        return []
 
     # Read the CSV file and filter rows based on the username
     df = pd.read_csv(file_name)
@@ -353,16 +358,16 @@ def userChangePassword():
     if not session.get('user_id'):
         return redirect('/user/')
     if request.method == 'POST':
-        email=request.form.get('email')
+        username=request.form.get('username')
         password=request.form.get('password')
-        if email == "" or password == "":
+        if username == "" or password == "":
             flash('Please fill the field','danger')
             return redirect('/user/change-password')
         else:
-            users=User.query.filter_by(email=email).first()
+            users=User.query.filter_by(username=username).first()
             if users:
                hash_password=bcrypt.generate_password_hash(password,10)
-               User.query.filter_by(email=email).update(dict(password=hash_password))
+               User.query.filter_by(username=username).update(dict(password=hash_password))
                db.session.commit()
                flash('Password Change Successfully','success')
                return redirect('/user/change-password')
